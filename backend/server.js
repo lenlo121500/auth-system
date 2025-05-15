@@ -35,14 +35,6 @@ app.use(globalRateLimiter);
 
 app.use("/api/auth", authRouter);
 
-app.use("*", (req, res, next) => {
-  try {
-    res.status(404).json({ status: "error", message: "Route not found" });
-  } catch (error) {
-    next(error);
-  }
-});
-
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/frontend/dist")));
   app.get("*", (req, res) => {
@@ -52,6 +44,13 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(errorHandler);
 
+app.use("*", (req, res, next) => {
+  try {
+    res.status(404).json({ status: "error", message: "Route not found" });
+  } catch (error) {
+    next(error);
+  }
+});
 app.listen(PORT, async () => {
   try {
     await connectDB();
