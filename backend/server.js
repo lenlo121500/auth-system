@@ -36,10 +36,21 @@ app.use(globalRateLimiter);
 app.use("/api/auth", authRouter);
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "/frontend/dist")));
+  const __dirname = path.resolve();
+  const staticPath = path.join(__dirname, "frontend", "dist");
+
+  app.use(
+    express.static(staticPath, {
+      maxAge: "1y",
+      etag: false,
+    })
+  );
+
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+    res.sendFile(path.join(staticPath, "index.html"));
   });
+
+  console.log(`Production: Serving static files from ${staticPath}`);
 }
 
 app.use(errorHandler);
