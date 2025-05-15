@@ -36,21 +36,18 @@ app.use(globalRateLimiter);
 app.use("/api/auth", authRouter);
 
 if (process.env.NODE_ENV === "production") {
-  const __dirname = path.resolve();
-  const staticPath = path.join(__dirname, "frontend", "dist");
+  const staticPath = path.join(__dirname, "../../frontend/dist");
 
-  app.use(
-    express.static(staticPath, {
-      maxAge: "1y",
-      etag: false,
-    })
-  );
+  // Verify path exists
+  if (!fs.existsSync(staticPath)) {
+    console.error("Missing build files at:", staticPath);
+    process.exit(1);
+  }
 
+  app.use(express.static(staticPath));
   app.get("*", (req, res) => {
     res.sendFile(path.join(staticPath, "index.html"));
   });
-
-  console.log(`Production: Serving static files from ${staticPath}`);
 }
 
 app.use(errorHandler);

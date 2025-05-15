@@ -4,10 +4,10 @@
   "description": "",
   "main": "backend/server.js",
   "scripts": {
+    "build": "cd frontend && npm install && npm run build",
     "start": "cross-env NODE_ENV=production node backend/server.js",
     "dev": "cross-env NODE_ENV=development nodemon backend/server.js",
-    "build": "npm install && cd frontend && npm install && npm run build",
-    "start:debug": "cross-env NODE_ENV=production node --trace-warnings -r dotenv/config backend/server.js dotenv_config_path=.env.production"
+    "debug:paths": "node -e \"console.log('Paths:', {backend: require('path').resolve(__dirname, 'backend'), frontendBuild: require('path').resolve(__dirname, 'frontend/dist')})\""
   },
   "keywords": [],
   "author": "",
