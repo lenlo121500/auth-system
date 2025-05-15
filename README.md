@@ -11,6 +11,7 @@ This is a full-stack authentication system built with the MERN stack (MongoDB, E
 - **Responsive UI**: Built with React and styled using Tailwind CSS v4.
 - **State Management**: Utilizes Zustand for efficient state handling.
 - **Notifications**: Real-time feedback with React Hot Toast.
+- **Email Notifications**: Email integration using Mailtrap.
 - **Protected Routes**: Ensures certain pages are accessible only to authenticated users.
 
 ## 🛠️ Technologies Used
@@ -51,7 +52,7 @@ This is a full-stack authentication system built with the MERN stack (MongoDB, E
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/yourusername/auth-mern.git
+   git clone https://github.com/lenlo121500/auth-mern.git
    cd auth-mern
    ```
 
@@ -152,7 +153,7 @@ export default defineConfig({
 - **Responsive Design**: Mobile-friendly interface using Tailwind CSS.
 - **State Management**: Efficient global state handling with Zustand.
 - **Notifications**: User-friendly alerts with React Hot Toast.
-- **Email Notifications: Email integration using Mailtrap
+- **Email Notifications**: Email integration using Mailtrap
 - **Rate Limiting**: Prevent brute-force attacks with express-rate-limit.
 - **Security**: Enhanced security with Helmet and CORS configurations.
 
