@@ -33,14 +33,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(globalRateLimiter);
 
-app.use("*", (req, res, next) => {
-  try {
-    res.status(404).json({ status: "error", message: "Route not found" });
-  } catch (error) {
-    next(error);
-  }
-});
-
 app.use("/api/auth", authRouter);
 
 if (process.env.NODE_ENV === "production") {
