@@ -33,20 +33,20 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(globalRateLimiter);
 
+app.use("*", (req, res, next) => {
+  try {
+    res.status(404).json({ status: "error", message: "Route not found" });
+  } catch (error) {
+    next(error);
+  }
+});
+
 app.use("/api/auth", authRouter);
 
 if (process.env.NODE_ENV === "production") {
-  const staticPath = path.join(__dirname, "../../frontend/dist");
-
-  // Verify path exists
-  if (!fs.existsSync(staticPath)) {
-    console.error("Missing build files at:", staticPath);
-    process.exit(1);
-  }
-
-  app.use(express.static(staticPath));
+  app.use(express.static(path.join(__dirname, "/frontend/dist")));
   app.get("*", (req, res) => {
-    res.sendFile(path.join(staticPath, "index.html"));
+    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
   });
 }
 
